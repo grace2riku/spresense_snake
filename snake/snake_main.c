@@ -131,12 +131,21 @@
 
 int getch_serial(int fd) {
 	int len;
-	char ch = 0;
+	int ch = 0;
 
-	len = read(fd, &ch, 1);
-    if(len < 0)
+	len = read(fd, (void*)&ch, 1);
+    if(len > 0)
     {
-      //printf("[read_serial]null\n");
+		if (ch == 0x1b) {
+			read(fd, &ch, 1);
+			if (ch == 0x5b) {
+				read(fd, &ch, 1);
+				if (ch == 0x44) ch = KEY_LEFT;
+				if (ch == 0x43) ch = KEY_RIGHT;
+				if (ch == 0x41) ch = KEY_UP;
+				if (ch == 0x42) ch = KEY_DOWN;
+			}
+		}
     }
 
 	return ch;
