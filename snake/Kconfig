@@ -1,0 +1,25 @@
+
+config SNAKE_SNAKE
+	tristate "“snake_command”"
+	default y
+	---help---
+		Enable the snake app
+
+if SNAKE_SNAKE
+
+config SNAKE_SNAKE_PROGNAME
+	string "Program name"
+	default "snake"
+	---help---
+		This is the name of the program that will be use when the NSH ELF
+		program is installed.
+
+config SNAKE_SNAKE_PRIORITY
+	int "snake task priority"
+	default 100
+
+config SNAKE_SNAKE_STACKSIZE
+	int "snake stack size"
+	default 2048
+
+endif
